@@ -7,9 +7,13 @@ from src.models import Item, user
 # _id = Item(price= 1500,name= 'samsung',barcode='353samsung222', description='am tired sam')
 # _id.create_item()
 # print('into')
+# with app.app_context():
+#     item1 = Item.query.filter_by(name= 'blackberry').first()
+#     item1.owner = user.query.filter_by(username='Olowoleru').first().id
+#     db.session.add(item1)
+#     db.session.commit()
+    
 with app.app_context():
     item1 = Item.query.filter_by(name= 'blackberry').first()
-    item1.owner = user.query.filter_by(username='Olowoleru').first().id
-    db.session.add(item1)
-    db.session.commit()
     
+print(item1.owner)

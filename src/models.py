@@ -16,10 +16,12 @@ class user(db.Model):
         self.password_hash = password_hash
         #self.budget = budget
 
-    def create_acc(self):
-        with app.app_context():
-            db.session.add(self)
-            db.session.commit()
+    def create_account(self)-> None:
+            new_account = user(self.username, self.email, self.password_hash,)
+            with app.app_context():
+                db.session.add(new_account)
+                db.session.commit()
+
             
 
 
@@ -52,7 +54,12 @@ class Item(db.Model):
         with app.app_context():
             db.session.delete(existing_item)
             db.session.commit()
-  
+# def query(**arg):
+#     with app.app_context():
+#         _ = db.session.execute(**arg)
+#     return _
+
+   
 
 
 
