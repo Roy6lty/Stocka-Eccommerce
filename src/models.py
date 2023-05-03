@@ -1,5 +1,6 @@
 from src import app
 from src import db
+from src import bcrypt
 
 class user(db.Model):
       # database_model for user data
@@ -10,11 +11,21 @@ class user(db.Model):
     budget=db.Column(db.Integer(),nullable=False,default=1000)
     items=db.relationship('Item',backref='own_user',lazy=True)
    
-    def __init__(self,username, email,password_hash)-> None:
+    def __init__(self,username, email,password)-> None: #initilzing db Obj
         self.email = email
         self.username = username
-        self.password_hash = password_hash
-        #self.budget = budget
+        self.password = password
+        
+    @property
+    def password(self): #password getter from form
+        return self.password
+    
+    @password.setter
+    def password(self, plain_text_password): 
+        '''
+        This function hashes the User passowrd
+        '''
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 
     def create_account(self)-> None:
             new_account = user(self.username, self.email, self.password_hash,)
@@ -54,10 +65,7 @@ class Item(db.Model):
         with app.app_context():
             db.session.delete(existing_item)
             db.session.commit()
-# def query(**arg):
-#     with app.app_context():
-#         _ = db.session.execute(**arg)
-#     return _
+    
 
    
 
