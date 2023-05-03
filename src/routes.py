@@ -1,7 +1,7 @@
 from src import app
 from flask import render_template, redirect, url_for, flash
 from src.models import Item,user
-from src.forms import RegisteredForm
+from src.forms import RegisteredForm, LoginForm
 from src import db
 
 @app.route('/home')
@@ -39,3 +39,9 @@ def register_page():
 
    
     return render_template('register.html', form=form)
+
+@app.route('/login')
+def login_page():
+    form=LoginForm()
+
+    return render_template('login.html', form=form)

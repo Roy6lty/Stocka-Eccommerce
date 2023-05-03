@@ -23,5 +23,15 @@ class RegisteredForm(FlaskForm):
     Confirm_Password = PasswordField(label= 'Confirm Password',validators = [EqualTo('Password'), DataRequired()])
     Create_Account = SubmitField(label = 'Create Account')
     
-
+class LoginForm(FlaskForm):
+    def validate_Username(self, username_to_check):
+        User = user.query.filter_by(username=username_to_check.data).first()
+        if User == None:
+            raise ValidationError("Username doesn't exist")
+        
+    Username = StringField(label= 'Username', validators=[DataRequired()])
+    #Email_address = StringField(label= 'Email Address',validators=[Email(), DataRequired()])
+    Password = PasswordField(label= 'Password',validators=[DataRequired()])
+    Login = SubmitField(label = 'Sign in')
+    
 
