@@ -1,8 +1,12 @@
-from src import app
-from src import db
-from src import bcrypt
+from src import app, db, bcrypt, login_manger
+from flask_login import UserMixin
 
-class user(db.Model):
+
+@login_manger.user_loader
+def load_user(user_id):
+    return user.query.get(int(user_id))
+
+class user(db.Model, UserMixin):
       # database_model for user data
     id =db.Column(db.Integer(),primary_key=True)
     username=db.Column(db.String(length=30),unique=True,nullable=False)
@@ -11,14 +15,15 @@ class user(db.Model):
     budget=db.Column(db.Integer(),nullable=False,default=1000)
     items=db.relationship('Item',backref='own_user',lazy=True)
    
-    def __init__(self,username, email,password)-> None: #initilzing db Obj
+    def __init__(self,username, email, password_hash)-> None: #initilzing db Obj
         self.email = email
         self.username = username
-        self.password = password
-        
+        self.password = password_hash
+    
+    
     @property
     def password(self): #password getter from form
-        return self.password
+        return self.password_hash
     
     @password.setter
     def password(self, plain_text_password): 
@@ -26,12 +31,14 @@ class user(db.Model):
         This function hashes the User passowrd
         '''
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
-
+       
     def create_account(self)-> None:
-            new_account = user(self.username, self.email, self.password_hash,)
             with app.app_context():
-                db.session.add(new_account)
+                db.session.add(self)
                 db.session.commit()
+
+    def check_password_correction(self,  attempted_password)->None:
+        return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
             
 
@@ -54,9 +61,8 @@ class Item(db.Model):
         return f'{self.name},{self.id}'
     
     def create_item(self):
-        new_item = Item(self.name, self.price, self.barcode, self.description,)
         with app.app_context():
-            db.session.add(new_item)
+            db.session.add(self)
             db.session.commit()
 
 
