@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from src.models import Item,user
 from src.forms import RegisteredForm, LoginForm
 from src import db
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 @app.route('/home')
 @app.route('/')

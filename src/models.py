@@ -31,6 +31,18 @@ class user(db.Model, UserMixin):
         This function hashes the User passowrd
         '''
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
+    
+    @property
+    def prettier_budget(self):
+        '''
+        returning commas between zeros for budget
+        '''
+        if len(str(self.budget)) >= 4:
+            return f'{str(self.budget)[:-3]},{str(self.budget)[-3:]}'
+        else:
+            return f'{self.budget}'
+    
+    
        
     def create_account(self)-> None:
             with app.app_context():
