@@ -1,6 +1,24 @@
-Flask
-flask-wtf
-wtforms
-flask-bcrypt
-flask-login
-tqdm
+bcrypt @ file:///tmp/abs_6fpe92qzzo/croots/recipe/bcrypt_1659554336150/work
+cffi @ file:///croot/cffi_1670423208954/work
+click @ file:///tmp/build/80754af9/click_1646056590078/work
+cryptography @ file:///croot/cryptography_1677533068310/work
+dnspython @ file:///tmp/abs_1akw6hh382/croots/recipe/dnspython_1659712632116/work
+email-validator @ file:///opt/conda/conda-bld/email-validator-meta_1659798158442/work
+Flask @ file:///croot/flask_1671217343254/work
+Flask-Bcrypt @ file:///croot/flask-bcrypt_1669799280651/work
+Flask-Login @ file:///croot/flask-login_1669057577320/work
+Flask-SQLAlchemy @ file:///croot/flask-sqlalchemy_1671219118085/work
+Flask-WTF @ file:///croot/flask-wtf_1668812517606/work
+greenlet @ file:///croot/greenlet_1670513226095/work
+idna @ file:///croot/idna_1666125576474/work
+importlib-metadata @ file:///croot/importlib-metadata_1678997070253/work
+itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
+Jinja2 @ file:///croot/jinja2_1666908132255/work
+MarkupSafe @ file:///opt/conda/conda-bld/markupsafe_1654597864307/work
+pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+python-dotenv @ file:///croot/python-dotenv_1669132557191/work
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+SQLAlchemy @ file:///tmp/abs_18b3238f-9c23-4182-a392-63af30a93c1er8j_yw60/croots/recipe/sqlalchemy_1657867856580/work
+Werkzeug @ file:///croot/werkzeug_1679489717957/work
+WTForms @ file:///Users/ktietz/demo/mc3/conda-bld/wtforms_1629354749392/work
+zipp @ file:///croot/zipp_1672387121353/work
