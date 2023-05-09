@@ -13,7 +13,10 @@ from src.models import Item, user
 #     db.session.add(item1)
 #     db.session.commit()
     
-with app.app_context():
-    item1 = Item.query.filter_by(name= 'blackberry').first()
+# with app.app_context():
+#     item1 = Item.query.filter_by(name= 'blackberry').first()
     
-print(item1.owner)
+# print(item1.owner)
+
+item1 = Item(name= 'pixel_6',price=250, barcode='pixel61234',description='Brand new pixel6')
+item1.create_item()
