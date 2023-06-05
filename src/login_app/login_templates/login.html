@@ -20,17 +20,23 @@
 
             {{ form.Password.label()}}
             {{ form.Password(class= 'form-control', placeholder= 'Password')}}
+            <br>
+            <a href="{{ url_for('app_login.resetpassword_page') }}" target= "_self"> Forgot Password? </a>
+            <br>
 
         <br>
         {{form.Login(class='btn btn-lng btn-block btn-primary')}}
 
+        <hr width=" 90%" size="80" align="center" color="white"> 
+        
         <br>
         
         </form>
         
         <div class="checkbox nb-3">
+
             <h6> Do not have an account</h6>
-            <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('app_login.register_page') }}">Register</a>
         </div>
     </div>
 </body>

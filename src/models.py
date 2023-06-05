@@ -1,5 +1,8 @@
 from src import app, db, bcrypt, login_manger
+from flask import jsonify
 from flask_login import UserMixin
+import jwt
+from datetime import datetime, timezone, timedelta
 
 
 @login_manger.user_loader
@@ -7,7 +10,14 @@ def load_user(user_id):
     return user.query.get(int(user_id)) # user method
 
 class user(db.Model, UserMixin):
+    """_summary_
+
+    Args:
+        db (_type_): _description_
+        UserMixin (_type_): _description_
+    """
       # database_model for user data
+      
     id =db.Column(db.Integer(),primary_key=True)
     username=db.Column(db.String(length=30),unique=True,nullable=False)
     email=db.Column(db.String(length=50),unique=True,nullable=False)
@@ -15,7 +25,7 @@ class user(db.Model, UserMixin):
     budget=db.Column(db.Integer(),nullable=False,default=1000)
     items=db.relationship('Item',backref='own_user',lazy=True)
    
-    def __init__(self,username, email, password_hash)-> None: #initilzing db Obj
+    def __init__(self,username:str, email:str, password_hash:str)-> None: #initilzing db Obj
         self.email = email
         self.username = username
         self.password = password_hash
@@ -43,7 +53,26 @@ class user(db.Model, UserMixin):
             return f'{self.budget}'
     
     
-       
+    @staticmethod
+    def token_encoder(*args, **kwargs):
+        token = jwt.encode({
+                    'expiration': str(datetime.now(tz=timezone.utc) + timedelta(seconds = 300)),
+                    **kwargs
+                },
+                app.config['SECRET_KEY']
+                )
+        return token
+    
+    @staticmethod
+    def token_decoder(token):
+        payload = jwt.decode(
+            token,
+            key = app.config['SECRET_KEY']
+        )
+
+        return jsonify(payload, status = 200 )
+    
+    
     def create_account(self)-> None:
             with app.app_context():
                 db.session.add(self)
