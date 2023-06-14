@@ -1,7 +1,7 @@
-from src import app, db
+from ..extentions import db
 from flask import render_template, redirect, url_for, flash, request,session, Blueprint
-from src.models import user, Item
-from src.forms import RegisteredForm, LoginForm, Purchaseitemform
+from ..models import user, Item
+from ..forms import RegisteredForm, LoginForm, Purchaseitemform
 from flask_login import  login_required, current_user
 
 app_market = Blueprint('app_market', __name__, static_folder="static", template_folder="market_templates")

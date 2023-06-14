@@ -1,17 +1,18 @@
-from src import app, Message, db, mail
+from ..extentions import db, Message, mail
 from flask import render_template, redirect, url_for, flash, request,session, Blueprint
-from src.models import user
-from src.forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
+from ..models import user
+from ..forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
 from flask_login import login_user, logout_user, login_required, current_user
 import datetime 
 import jwt
 import socket
 socket.setdefaulttimeout(10)
+#from ..logger import logging
 
 
 
 
-app_login = Blueprint('app_login', __name__, static_folder="static", template_folder="login_templates")
+app_login = Blueprint('app_login', __name__, static_folder="static",static_url_path='login_app/static', template_folder="login_templates")
 
 
 
@@ -31,6 +32,7 @@ def login_page():
             login_user(attempted_user)
             session['name'] = attempted_user #setting session-name to username
             flash(f'Success! You are logged in as {attempted_user.username}', category='success')
+            #logging.info(f'username{attempted_user}')
             return redirect(url_for('app_market.market_page'))
         else:
             flash('Username and password do not match! Try again', category='danger')
@@ -43,16 +45,20 @@ def login_page():
 def register_page():
     form = RegisteredForm()
     if form.validate_on_submit(): #validation of data entry
-        user_to_create = user(username=form.Username.data, #db session object created
-                              email=form.Email_address.data,
-                              password_hash=form.Password.data)
-        user_to_create.create_account() # db session Expire
+            #logging.info(form.Email_address.data)
+            user_to_create = user(username=form.Username.data, #db session object created
+                                email=form.Email_address.data,
+                                password_hash=form.Password.data)
+            
 
-        attempted_user = user.query.filter_by(username=form.Username.data).first() #db session object created
-        login_user(attempted_user)
-        session['name'] = attempted_user #User_session
-        flash(f'Congratulations {attempted_user.username}! You have successfully created your account', category='success')
-        return redirect(url_for('app_market.market_page'))
+            user_to_create.create_account() # db session Expire
+
+            attempted_user = user.query.filter_by(username=form.Username.data).first() #db session object created
+            login_user(attempted_user)
+            session['name'] = attempted_user #User_session
+            flash(f'Congratulations {attempted_user.username}! You have successfully created your account', category='success')
+            return redirect(url_for('app_market.market_page'))
+     
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'There was an error message with creating a user:{err_msg}',category='danger')
@@ -63,9 +69,10 @@ def register_page():
 
 
 @app_login.route('/logout')
+@login_required
 def logout():
     logout_user()
-    #session.pop('name', default='None')
+    session.pop('name', default='None')
     flash('You have successfully been logged out', category= 'info')
     return redirect(url_for('app_login.home_page'))
 
@@ -84,7 +91,7 @@ def send_rest_email(user):
 @app_login.route('/reset', methods = ["GET", "POST"])
 def resetpassword_page():
     form=Resetpasswordform()
-    if form.validate_on_submit():
+    if request.method == "POST":
         attempted_user = user.query.filter_by(email=form.Email_address.data).first()
         if attempted_user:
             send_rest_email(attempted_user)

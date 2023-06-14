@@ -1,8 +1,12 @@
-from src import app, db, bcrypt, login_manger
+from flask import current_app as app
+from .extentions import db, bcrypt, login_manger
 from flask import jsonify
 from flask_login import UserMixin
 import jwt
 from datetime import datetime, timezone, timedelta
+
+
+
 
 
 @login_manger.user_loader
@@ -17,12 +21,12 @@ class user(db.Model, UserMixin):
         UserMixin (_type_): _description_
     """
       # database_model for user data
-      
     id =db.Column(db.Integer(),primary_key=True)
     username=db.Column(db.String(length=30),unique=True,nullable=False)
     email=db.Column(db.String(length=50),unique=True,nullable=False)
     password_hash=db.Column(db.String(length=60),nullable=False)
     budget=db.Column(db.Integer(),nullable=False,default=1000)
+    image_file=db.Column(db.String(60), nullable=False, default = "default.png")
     items=db.relationship('Item',backref='own_user',lazy=True)
    
     def __init__(self,username:str, email:str, password_hash:str)-> None: #initilzing db Obj
@@ -36,11 +40,12 @@ class user(db.Model, UserMixin):
         return self.password_hash
     
     @password.setter
-    def password(self, plain_text_password): 
+    def password(self, password_hash): 
         '''
         This function hashes the User passowrd
         '''
-        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
+        print(password_hash)
+        self.password_hash = bcrypt.generate_password_hash(password_hash).decode('utf-8')
     
     @property
     def prettier_budget(self):

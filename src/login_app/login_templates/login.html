@@ -7,12 +7,19 @@
 {% block content %}
 <body >
     <div class="container">
-        
+
+        <style>
+            img{
+                display: block;
+                margin-left:auto;
+                margin-right:auto;
+            }
+        </style>
+        <image  src="{{url_for('.static', filename = 'images/Registration.png')}}" width="100" height="100" class='center'  align="center"/>
+            <br>
         <form method= 'POST' class="form-signin" style="color:white">
             {{ form.hidden_tag() }}
-            <img class='center'src="images\\Registration.png"alt=""/>
-            <br>
-            <h1 class="text-center"  font-weight-normal">
+            <h1 class="text-center"  font-weight-normal>
                 Login 
             </h1>
             {{ form.Username.label()}}

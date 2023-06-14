@@ -38,47 +38,17 @@ class BaseConfig(Config):
     SECRET_KEY = '89a9e0123ee2b43fa3a25d7f'
     DEBUG =True
 
-    # # SessionConfig
-    # SESSION_REDIS = redis.from_url('redis://127.0.0.1:6379')
-    # SESSION_TYPE = 'redis'
-    # SESSION_USE_SIGNER = True
-    # SESSION_PERMANENT = False
-    # PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
-
-    # #Mail Setup
-    # MAIL_SERVER ='smtp.mailosaur.net'
-    # MAIL_PORT = 587
-    # MAIL_USE_TLS = True
-    # MAIL_USERNAME = 'k6gxcpk8@mailosaur.net'
-    # MAIL_PASSWORD = '6b8bF1khK8zrWHkscW0yot3ZFxaS95qm'
     
     
 class TestConfig(Config):
     '''
     Test Configuration
     '''
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///testdatabase.db'
     SECRET_KEY = 'mysecretkey'
+    TESTING = True
+    WTF_CSRF_ENABLED = True
     DEBUG = True
-
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
-    SECRET_KEY = '89a9e0123ee2b43fa3a25d7f'
-    DEBUG =True
-
-    # SessionConfig
-    SESSION_REDIS = redis.from_url('redis://127.0.0.1:6379')
-    SESSION_TYPE = 'redis'
-    SESSION_USE_SIGNER = True
-    SESSION_PERMANENT = False
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
-
-    #Mail Setup
-    MAIL_SERVER ='smtp.mailosaur.net'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = 'k6gxcpk8@mailosaur.net'
-    MAIL_PASSWORD = '6b8bF1khK8zrWHkscW0yot3ZFxaS95qm'
-
 
 config = {
     'Base': BaseConfig,
