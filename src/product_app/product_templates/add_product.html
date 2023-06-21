@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Add_Product
+{% endblock %}
+
+{% block content %}
+<body >
+    <div class="container">
+        
+        <form method= 'POST' class="form-add_product" style="color:white" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <h1 class="text-center"  font-weight-normal>
+                Create Account
+            </h1>
+            
+            {{ form.Name.label()}}
+            {{ form.Name(class= 'form-control', placeholder= 'Product Name')}}
+
+            {{ form.Price.label()}}
+            {{ form.Price(class= 'form-control', placeholder= '10.00')}}
+
+            {{ form.Barcode.label()}}
+            {{ form.Barcode(class= 'form-control', placeholder= '000000000000')}}
+
+            {{ form.Stock.label()}}
+            {{ form.Stock(class= 'form-control', placeholder= 'Number Available')}}
+
+            {{ form.Description.label()}}
+            {{ form.Description(class= 'form-control', placeholder= 'description')}}
+
+            <div class="form-group">
+                {{form.Picture.label()}}
+                {{form.Picture(class= 'form-control-file')}}
+                {% if form.Picture.errors %}
+                    {% for error in form.Picture.errors %}
+                        <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}s
+                {%  endif   %}
+
+            </div>
+        <br>
+        {{form.Submit(class='btn btn-lng btn-block btn-primary')}}
+
+        </form>
+        
+    </div>
+</body>
+{% endblock %}

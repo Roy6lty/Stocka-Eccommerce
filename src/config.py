@@ -52,6 +52,7 @@ class FileUpload(Config):
     '''
     UPLOAD_FOLDER = 'uploads'
     ALLOWED_EXTENTIONS = {'txt', 'jpg', 'png', 'jpeg'}
+    MAX_CONTENT_LENGTH = 5 * 1000 * 1000
 
 config = {
     'Base': BaseConfig,

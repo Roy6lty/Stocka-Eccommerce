@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+product Page
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="src/product_app/static/product_page.css">
+<link rel="stylesheet" href="src/product_app/static/product.css">
+{% endblock %}
+{% block content %}
+<div>
+        <div class="main-div"> <!--Main_div-->
+            <div>
+                <div class="product-img"><!--Product-image-->
+                    <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
+                </div>
+                    <div class="product-title">
+                        <p> {{item.name}}</p>
+                    </div>
+
+                    <div class="product-price">
+                        <p> {{item.price}}</p>
+                    </div>
+            </div>
+
+        </div>
+    
+
+</div>
+{% endblock %}

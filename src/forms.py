@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, file_required
 from flask_login import current_user
 from flask import flash
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import Length, Email, EqualTo, DataRequired, ValidationError
 from .models import user
 
@@ -84,4 +84,17 @@ class AccountUpdate(FlaskForm):
     Picture = FileField("Upadate Profile Picture", validators =[FileAllowed(['jpg','png'])])
     Update = SubmitField(label = 'Save Profile')
 
+class Add_product(FlaskForm):
+
+    # def validate_Price(self, Price_to_check):
+    #     if (type(Price_to_check.data) == int) or (type(Price_to_check.data) == float):
+    #         float(Price_to_check.data)
+    #     raise ValidationError('Type in Proper Price')
     
+    Name = StringField(label= 'Product Name', validators=[Length(min=2, max=20),DataRequired()])
+    Price = StringField(label= 'Product Price', validators=[Length(min=2),DataRequired()])
+    Barcode = StringField(label= 'Barcode')
+    Stock = StringField(label= 'Stock', validators=[DataRequired()])
+    Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
+    Picture = FileField("Product image", validators =[FileAllowed(['jpg','png']),DataRequired()])
+    Submit = SubmitField(label = 'Add Product')

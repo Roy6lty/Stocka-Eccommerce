@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+Shopping Page
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="src/product_app/static/product_page.css">
+<link rel="stylesheet" href="src/product_app/static/product.css">
+{% endblock %}
+{% block content %}
+<div style="   display: grid; 
+grid-template-columns: 1fr 1fr 1fr 1fr;
+margin-top : 30px;
+margin-bottom: 50px;
+row-gap: 20px;">
+
+    
+    
+    {% for item in items %}
+
+    
+        <a href="{{url_for('app_product.product_page', item=item)}}">
+            <div class="main-div"> <!--Main_div-->
+                <div>
+                    <div class="product-img"><!--Product-image-->
+                        <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
+                    </div>
+                        <div class="product-title">
+                            <p> {{item.name}}</p>
+                        </div>
+
+                        <div class="product-price">
+                            <p> {{item.price}}</p>
+                        </div>
+                </div>
+
+            </div>
+        </a>
+    {% endfor %}
+
+</div class="side-bar">
+<div><!--home-->
+    <img height="25" src="icons/icons8-home.svg"/>
+</div>
+
+<div><!--home-->
+    <img height="25" src="icons/icons8-history-50.png"/>
+</div>
+
+<div><!--home-->
+    <img height="25" src="icons/icons8-playlist-50.png"/>
+</div>
+
+<div><!--home-->
+    <img height="25" src="icons/icons8-thumb-up-64.png"/>
+</div>
+
+<div>
+
+</div>
+{% endblock %}

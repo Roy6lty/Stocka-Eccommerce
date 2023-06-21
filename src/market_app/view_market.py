@@ -4,7 +4,7 @@ from ..models import user, Item
 from ..forms import RegisteredForm, LoginForm, Purchaseitemform
 from flask_login import  login_required, current_user
 
-app_market = Blueprint('app_market', __name__, static_folder="static", template_folder="market_templates")
+app_market = Blueprint('app_market', __name__, static_folder="static", template_folder="market_templates",static_url_path='src/market_app/static')
 
 
 
@@ -23,3 +23,5 @@ def market_page():
             flash(f'congratulations Your {purchased_item} was successful', category='success')
     
     return render_template('market.html',items=items, form=form)
+
+

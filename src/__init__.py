@@ -21,9 +21,10 @@ def create_app(config_name):
     bcrypt.init_app(app)
     mail.init_app(app)
 
-    from .login_app.login_app import app_login
-    from .market_app.market_app import app_market
-    from .user_profile.view import profile
+    from .login_app.view_login import app_login
+    from .market_app.view_market import app_market
+    from .user_profile.view_profile import profile
+    from .product_app.view_products import app_product
 
     login_manger.login_view = 'app_login.login_page'
     login_manger.login_message_category = 'info'
@@ -33,6 +34,7 @@ def create_app(config_name):
     app.register_blueprint(app_login, url_prefix = "")
     app.register_blueprint(app_market, url_prefix = "")
     app.register_blueprint(profile, url_prefix = "")
+    app.register_blueprint(app_product, url_prefix = "")
 
     
     with app.app_context():

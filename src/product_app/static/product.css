@@ -1,0 +1,33 @@
+.main-div{
+    display: flex;
+    flex:1;
+    align-items: center;
+    flex-direction: column;
+
+}
+.main-div::hover{
+    background-color:rgba(240, 236, 236, 0.473)
+}
+.product-img{
+    width: 200px;
+    border-radius: 0;
+}
+
+.product-price{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: arial;
+    font-weight: bold;
+    color: black;
+
+}
+.product-title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: arial;
+    font-weight: bold;
+    color: black;
+}
+

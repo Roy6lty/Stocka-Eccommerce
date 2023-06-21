@@ -93,15 +93,36 @@ class Item(db.Model):
     id=db.Column(db.Integer(),primary_key=True)
     name= db.Column(db.String(length=30),nullable= False, unique=True)
     price=db.Column(db.Integer(),nullable=False)
-    barcode=db.Column(db.String(length=12), nullable=False)
+    barcode=db.Column(db.String(60))
     description=db.Column(db.String(1024), nullable=False)
+    stock= db.Column(db.Integer(), nullable=False)
+    image_file=db.Column(db.String(60), nullable=False, default = "default.png")
     owner=db.Column(db.Integer(),db.ForeignKey('user.id'))
 
-    def __init__(self,name, price, barcode, description)-> None:
+    def __init__(self,name:str, price:int, barcode:str, stock:int, description:str, image_file:str) -> None:
         self.name= name
         self.barcode = barcode
         self.price = price
+        self.stock = stock
         self.description = description
+        self.image_file = image_file
+
+    # @property
+    # def barcode(self): #barcode getter from form
+    #     return self.barcode
+    
+    # @barcode.setter
+    # def barcode(self, barcode): 
+    #     '''
+    #     This function hashes the User passowrd
+    #     '''
+    #     if barcode:
+    #             self.barcode = barcode
+    #             return self.barcode 
+    #     else:
+    #         self.barcode = None
+    #         return self.barcode
+        
 
     def __repr__(self):
         return f'{self.name},{self.id}'
