@@ -96,5 +96,9 @@ class Add_product(FlaskForm):
     Barcode = StringField(label= 'Barcode')
     Stock = StringField(label= 'Stock', validators=[DataRequired()])
     Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
-    Picture = FileField("Product image", validators =[FileAllowed(['jpg','png']),DataRequired()])
+    Picture = FileField("Product image", validators =[FileAllowed(['jpg','png', 'jpeg']),DataRequired()])
     Submit = SubmitField(label = 'Add Product')
+
+class Comments(FlaskForm):
+    Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
+    Submit = SubmitField(label = 'Post')

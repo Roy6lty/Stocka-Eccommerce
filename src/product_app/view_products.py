@@ -2,7 +2,7 @@ from ..extentions import db
 from flask import render_template, redirect, url_for, flash, request,session, Blueprint
 from ..models import user, Item
 from ..utils import save_picture
-from ..forms import Add_product
+from ..forms import Add_product, Comments
 from flask_login import  login_required, current_user
 
 app_product = Blueprint('app_product', __name__, static_folder="static", template_folder="product_templates",static_url_path='src/product_app/static')
@@ -42,9 +42,10 @@ def shopping_page():
 
 @app_product.route('/<item>', methods=['POST','GET'])
 def product_page(item):
+    form= Comments()
     product_id=item[-1]
 
     product = Item.query.filter_by(id=product_id).first()
     
     
-    return render_template('product_page.html', item=product)
+    return render_template('product_page.html', item=product, form=form)

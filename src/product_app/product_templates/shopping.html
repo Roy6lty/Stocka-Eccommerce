@@ -5,56 +5,86 @@ Shopping Page
 {% block style %}
 <link rel="stylesheet" href="src/product_app/static/product_page.css">
 <link rel="stylesheet" href="src/product_app/static/product.css">
+<link rel="stylesheet" href="src/product_app/static/shopping_page.css">
+
 {% endblock %}
 {% block content %}
-<div style="   display: grid; 
-grid-template-columns: 1fr 1fr 1fr 1fr;
-margin-top : 30px;
-margin-bottom: 50px;
-row-gap: 20px;">
-
-    
-    
-    {% for item in items %}
-
-    
-        <a href="{{url_for('app_product.product_page', item=item)}}">
-            <div class="main-div"> <!--Main_div-->
-                <div>
-                    <div class="product-img"><!--Product-image-->
-                        <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
-                    </div>
-                        <div class="product-title">
-                            <p> {{item.name}}</p>
-                        </div>
-
-                        <div class="product-price">
-                            <p> {{item.price}}</p>
-                        </div>
+<!------------------Product categories----------------------------------------------------------------->
+    <div>
+        <div class="home-categories"> <!-- Home Container-->
+            <div class="home-content"> <!--content (title and contents)-->
+                <div class="home-title"> <!--title-->
+                    <p class="title"> Top Deals</p>
                 </div>
 
+                <div class="categories-product">
+                    {% for item in items %}
+    
+                        <a href="{{url_for('app_product.product_page', item=item)}}">
+                            <div class="main-div"> <!--Main_div-->
+                                <div>
+                                    <div class="product-img"><!--Product-image-->
+                                        <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
+                                    </div>
+                                        <div class="product-title">
+                                            <p> {{item.name}}</p>
+                                        </div>
+                
+                                        <div class="product-price">
+                                            <p> {{item.price}}</p>
+                                        </div>
+                                </div>
+                
+                            </div>
+                        </a>
+                    
+                     {% endfor %}
             </div>
-        </a>
-    {% endfor %}
+    </div>
+<!---------------------------Product categories----------------------------------------------------------------->
 
-</div class="side-bar">
-<div><!--home-->
-    <img height="25" src="icons/icons8-home.svg"/>
-</div>
+<!--------------------------- Side Bar----------------------------------------------------------------->
 
-<div><!--home-->
-    <img height="25" src="icons/icons8-history-50.png"/>
-</div>
+    <div class="side-bar">
+        <div class="icons"><!--home-->
+            <img  class="categories-img"  src="src/product_app/static/icons/beauty.png"/>
+            <p class="categories-title">Beauty</p>
+        </div>
 
-<div><!--home-->
-    <img height="25" src="icons/icons8-playlist-50.png"/>
-</div>
+        <div class="icons"><!--home-->
+            <img  class="categories-img"  src="src/product_app/static/icons/controller.png"/>
+            <p class="categories-title">Games</p>
+        </div>
 
-<div><!--home-->
-    <img height="25" src="icons/icons8-thumb-up-64.png"/>
-</div>
 
-<div>
+        <div class="icons"><!--home-->
+            <img class="categories-img"  src="src/product_app/static/icons/fitness.png"/>
+            <p class="categories-title">Fittness</p>
+        </div>
 
-</div>
+        <div class="icons"><!--home-->
+            <img class="categories-img"  src="src/product_app/static/icons/grocery.png"/>
+            <p class="categories-title">Grocery</p>
+        </div>
+
+        <div class="icons"><!--home-->
+            <img class="categories-img"  src="src/product_app/static/icons/shampoo.png"/>
+            <p class="categories-title">Shampoo</p>
+        </div>
+
+        <div class="icons"><!--home-->
+            <img class="categories-img"  src="src/product_app/static/icons/iphone.png"/>
+            <p class="categories-title">Phones</p>    
+        </div>
+
+        <div class="icons"><!--home-->
+            <img class="categories-img"  src="src/product_app/static/icons/workstation.png">
+            <p class="categories-title">computers</p>
+        </div>
+
+        
+
+    </div>
+<!---------------------------Side Bar----------------------------------------------------------------->
+
 {% endblock %}

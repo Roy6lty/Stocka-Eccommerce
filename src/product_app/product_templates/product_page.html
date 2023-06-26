@@ -7,23 +7,96 @@ product Page
 <link rel="stylesheet" href="src/product_app/static/product.css">
 {% endblock %}
 {% block content %}
-<div>
-        <div class="main-div"> <!--Main_div-->
-            <div>
-                <div class="product-img"><!--Product-image-->
-                    <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
-                </div>
-                    <div class="product-title">
-                        <p> {{item.name}}</p>
-                    </div>
 
-                    <div class="product-price">
-                        <p> {{item.price}}</p>
-                    </div>
+
+<div><!--Main-->
+    <div class="product-content">
+        <div class="product-img"><!-- img-->
+            <img class ="img" src="src/product_app/static/product_pic/{{item.image_file}}">
+        </div>
+        <div class="product-details"><!---product_details-->
+            <div class="shop"><!--shop_name-->
+                <p>Royalty Shop</p>
             </div>
 
+            <div class="item-name"><!-- Item Name-->
+                <p> {{item.name}}</p>
+            </div>
+        
+            <div class="item-price"><!-- Item price-->
+                <p> {{item.price}}</p>
+            </div>
+
+            <div class="add-to-cart"><!-- Add Button-->
+                <button class="add-button">
+                    ADD TO CART</p> </button>
+            </div>
+            <hr width="90%" color="grey" margin-left="auto"  margin-right="auto">
+
         </div>
+
+    </div>
+
+</div>
+
+<div>
     
+    <div class="container">
+        <h1> Reviews</h1>
+        <form method= 'POST' class="form-add_product" style="color:rgb(44, 43, 43)" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            {{ form.Description(class= 'form-control', placeholder= 'Review')}}
+
+        <br>
+        {{form.Submit(class='btn btn-sh btn-block btn-primary')}}
+
+        </form>
+        
+    </div>
+</div>
+<!--------------------------- Side Bar----------------------------------------------------------------->
+
+<div class="side-bar">
+    <div class="icons"><!--home-->
+        <img  class="categories-img"  src="src/product_app/static/icons/beauty.png"/>
+        <p class="categories-title">Beauty</p>
+    </div>
+
+    <div class="icons"><!--home-->
+        <img  class="categories-img"  src="src/product_app/static/icons/controller.png"/>
+        <p class="categories-title">Games</p>
+    </div>
+
+
+    <div class="icons"><!--home-->
+        <img class="categories-img"  src="src/product_app/static/icons/fitness.png"/>
+        <p class="categories-title">Fittness</p>
+    </div>
+
+    <div class="icons"><!--home-->
+        <img class="categories-img"  src="src/product_app/static/icons/grocery.png"/>
+        <p class="categories-title">Grocery</p>
+    </div>
+
+    <div class="icons"><!--home-->
+        <img class="categories-img"  src="src/product_app/static/icons/shampoo.png"/>
+        <p class="categories-title">Shampoo</p>
+    </div>
+
+    <div class="icons"><!--home-->
+        <img class="categories-img"  src="src/product_app/static/icons/iphone.png"/>
+        <p class="categories-title">Phones</p>    
+    </div>
+
+    <div class="icons"><!--home-->
+        <img class="categories-img"  src="src/product_app/static/icons/workstation.png">
+        <p class="categories-title">computers</p>
+    </div>
+
+    
+
+</div>
 
 </div>
 {% endblock %}
