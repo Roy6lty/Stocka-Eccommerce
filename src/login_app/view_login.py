@@ -3,10 +3,12 @@ from flask import render_template, redirect, url_for, flash, request,session, Bl
 from ..models import user
 from ..forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
 from flask_login import login_user, logout_user, login_required, current_user
+from ..cart import Shoppingcart, SetCookie_cart_id, GetCookie_cart_id
 import datetime 
 import jwt
 import socket
 socket.setdefaulttimeout(10)
+
 #from ..logger import logging
 
 
@@ -20,8 +22,13 @@ app_login = Blueprint('app_login', __name__, static_folder="static",static_url_p
 @app_login.route('/')
 def home_page():
     if not session.get('name'):
+        cookie_id = GetCookie_cart_id()
+        if cookie_id is None:
+            cookie_id = SetCookie_cart_id(render_template('home.html'))
+            return cookie_id
         return render_template('home.html')
-    return redirect(url_for('app_market.market_page'))
+        
+    return redirect(url_for('app_market.market_page' ,cookie_id = cookie_id))
 
 @app_login.route('/login', methods = ["POST","GET"])
 def login_page():

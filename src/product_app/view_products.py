@@ -4,6 +4,7 @@ from ..models import user, Item
 from ..utils import save_picture
 from ..forms import Add_product, Comments
 from flask_login import  login_required, current_user
+from ..cart import Shoppingcart
 
 app_product = Blueprint('app_product', __name__, static_folder="static", template_folder="product_templates",static_url_path='src/product_app/static')
 
@@ -44,8 +45,10 @@ def shopping_page():
 def product_page(item):
     form= Comments()
     product_id=item[-1]
-
     product = Item.query.filter_by(id=product_id).first()
-    
-    
+    if request.method == "POST":
+
+        if request.form["add_to_cart"] == "ADD TO CART":
+           Shoppingcart.add_item(product)
+           flash(f'Your item has been successfully Added your cart', category='success')
     return render_template('product_page.html', item=product, form=form)

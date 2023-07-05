@@ -8,7 +8,6 @@ product Page
 {% endblock %}
 {% block content %}
 
-
 <div><!--Main-->
     <div class="product-content">
         <div class="product-img"><!-- img-->
@@ -28,9 +27,13 @@ product Page
             </div>
 
             <div class="add-to-cart"><!-- Add Button-->
-                <button class="add-button">
-                    ADD TO CART</p> </button>
-            </div>
+                <form method="POST">
+                    <input type="hidden" name="add_to_cart" value="ADD TO CART" >
+                    <button class="add-button">
+                        ADD TO CART</p> </button>
+                </div>
+                </form>
+                
             <hr width="90%" color="grey" margin-left="auto"  margin-right="auto">
 
         </div>
@@ -93,10 +96,6 @@ product Page
         <img class="categories-img"  src="src/product_app/static/icons/workstation.png">
         <p class="categories-title">computers</p>
     </div>
-
-    
-
-</div>
 
 </div>
 {% endblock %}

@@ -11,17 +11,11 @@
         <form method= 'POST' class="form-register" style="color:rgb(88, 86, 86)">
             {{ form.hidden_tag() }}
             
-        <style>
-            img{
-                display: block;
-                margin-left:auto;
-                margin-right:auto;
-            }
-        </style>
-        <image  src="{{url_for('.static', filename = 'images/Registration.png')}}" width="100" height="100" class='center'  align="center"/>
+    
+        <image class="logo_img" src="{{url_for('.static', filename = 'images/Registration.png')}}" width="100" height="100" class='center'  align="center"/>
             <br>
             <br>
-            <h1 class="text-center"  font-weight-normal>
+            <h1 class="form_title"  font-weight-normal>
                 Create Account
             </h1>
             
