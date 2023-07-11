@@ -17,21 +17,20 @@ Shopping Page
                 </div>
 
                 <div class="categories-product">
-                    {% for item in items %}
+                    {% for product in items %}
     
-                        <a href="{{url_for('app_product.product_page', item=item)}}">
+                        <a href="{{url_for('app_product.product_page', item=product)}}">
                             <div class="main-div"> <!--Main_div-->
                                 <div>
                                     <div class="product-img"><!--Product-image-->
-                                        <img class ="product-img" src="src/product_app/static/product_pic/{{item.image_file}}">
+                                        <img class ="product-img" src="src/product_app/static/product_pic/{{product.image_file}}">
                                     </div>
                                         <div class="product-title">
-                                            <p> {{item.name}}</p>
+                                            <p> {{product.name}}</p>
                                         </div>
                 
                                         <div class="product-price">
-                                            <p> {{item.price}}</p>
-                                        </div>
+                                           <p>  &#8358;{{product.price}}</p></div>
                                 </div>
                 
                             </div>

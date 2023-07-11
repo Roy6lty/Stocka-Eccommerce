@@ -15,7 +15,32 @@
         </button>
       </div>
       <div class="modal-body">
-        {{current_user.cart}}
+        {% for cartitem in cart %}
+          <div class="cart-basket">
+              <div class="cart-item"><!--cart summary-->
+                  <div ><!--image-->
+                    <img class ="cart-img" src="src/product_app/static/product_pic/{{cartitem.image_file}}"></div>
+
+                  <div class="cart-details">
+                    <!--cart details (price, quantity, name)-->
+                    <div class="cart-title">
+                    {{ cartitem.name }}</div>
+                    <div class="cart-price">
+                      &#8358;{{ cartitem.price }}</div>
+                  </div> <!--details close-->
+              </div> <!--cart summary close--> 
+              <div>
+                    <a href="{{url_for('app_product.unload_cart', cartitem=cartitem, item = item, page_function=page_function)}}">
+                    <button class="close">
+                        
+                    <span class="basket-close">&times;</span>
+                    </button>
+                  </a>
+        
+              </div>
+          </div>
+        {% endfor %}
+        
         
       </div>
       <div class="modal-footer">

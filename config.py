@@ -1,9 +1,13 @@
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 import redis
 from datetime import timedelta
 
-load_dotenv()
+env_path =Path(".", ".env") #env path
+
+load_dotenv(dotenv_path=env_path)
+
 class Config:
     SQLALCHEMY_TRACK_MODIFICATION = False
 
@@ -28,14 +32,14 @@ class MailConig(Config):
     MAIL_SERVER ='smtp.mailosaur.net'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = 'k6gxcpk8@mailosaur.net'
-    MAIL_PASSWORD = '6b8bF1khK8zrWHkscW0yot3ZFxaS95qm'
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 
 class BaseConfig(Config):
     '''Base config'''
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
-    SECRET_KEY = '89a9e0123ee2b43fa3a25d7f'
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     DEBUG =True
 
     
