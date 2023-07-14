@@ -81,7 +81,7 @@ class AccountUpdate(FlaskForm):
     Address = StringField(label= 'Address')
     State = StringField(label= 'state')
     Country =StringField(label= 'country')
-    Picture = FileField("Upadate Profile Picture", validators =[FileAllowed(['jpg','png'])])
+    Picture = FileField("Upadate Profile Picture", validators =[FileAllowed(['jpg','png', 'jpeg'])])
     Update = SubmitField(label = 'Save Profile')
 
 class Add_product(FlaskForm):
@@ -96,7 +96,7 @@ class Add_product(FlaskForm):
     Barcode = StringField(label= 'Barcode')
     Stock = StringField(label= 'Stock', validators=[DataRequired()])
     Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
-    Picture = FileField("Product image", validators =[FileAllowed(['jpg','png', 'jpeg']),DataRequired()])
+    Picture = FileField("Product image", validators =[FileAllowed(['jpeg','jpg','png', 'webp']),DataRequired()])
     Submit = SubmitField(label = 'Add Product')
 
 class Comments(FlaskForm):

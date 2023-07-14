@@ -1,12 +1,13 @@
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import os
 import redis
 from datetime import timedelta
+import json
 
 env_path =Path(".", ".env") #env path
 
-load_dotenv(dotenv_path=env_path)
+load_dotenv(find_dotenv())
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATION = False
@@ -35,6 +36,16 @@ class MailConig(Config):
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
+class FileUpload(Config):
+    '''
+    File Upload COnfiguration
+    '''
+    UPLOAD_FOLDER = 'uploads'
+    ALLOWED_EXTENTIONS = {'txt', 'jpg', 'png', 'jpeg'}
+    MAX_CONTENT_LENGTH = 5 * 1000 * 1000
+
+class dbMongo(Config):
+    MONGO_URI = os.environ.get("MONGO_URI")
 
 class BaseConfig(Config):
     '''Base config'''
@@ -42,7 +53,9 @@ class BaseConfig(Config):
     SECRET_KEY = os.environ.get("SECRET_KEY")
     DEBUG =True
 
-    
+
+class secret(Config):
+     SECRET_KEY = os.environ.get("SECRET_KEY")
     
 class TestConfig(Config):
     '''
@@ -58,5 +71,8 @@ config = {
     'Base': BaseConfig,
     'Test': TestConfig,
     'session':SessionConfig,
-    'mail':MailConig
+    'mail':MailConig,
+    'upload': FileUpload,
+    'mongo': dbMongo,
+    'secret':secret
 }

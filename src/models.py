@@ -44,7 +44,7 @@ class user(db.Model, UserMixin):
         '''
         This function hashes the User passowrd
         '''
-        print(password_hash)
+       
         self.password_hash = bcrypt.generate_password_hash(password_hash).decode('utf-8')
     
     @property

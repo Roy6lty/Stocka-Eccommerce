@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash, request,session, Bl
 from ..models import user
 from ..forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
 from flask_login import login_user, logout_user, login_required, current_user
-from ..cart import Shoppingcart, Cart_Id
+from ..cart import Shoppingcart, CartId
 import datetime 
 import jwt
 import socket
@@ -20,7 +20,7 @@ app_login = Blueprint('app_login', __name__, static_folder="static",static_url_p
 
 @app_login.route('/home')
 @app_login.route('/')
-@Cart_Id
+@CartId
 def home_page():
     if not session.get('name'):
         return render_template('home.html')
@@ -28,7 +28,7 @@ def home_page():
     return redirect(url_for('app_market.market_page'))
 
 @app_login.route('/login', methods = ["POST","GET"])
-@Cart_Id
+@CartId
 def login_page():
     form=LoginForm()
     if form.validate_on_submit():

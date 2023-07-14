@@ -10,7 +10,7 @@ class Shoppingcart:
     cart_items: list #list of product id
     
 
-def Cart_Id(original_function):
+def CartId(original_function):
     #importing modules
     import uuid, functools
     from datetime import datetime, timedelta
@@ -33,7 +33,7 @@ def Cart_Id(original_function):
     return wrapper_function
 
 
-def add_to_cart(conn, cart_id:str, product_id:int):
+def AddItem(conn, cart_id:str, product_id:int)-> dict:
     """
     This function add product_id cart(redisdatabase)
     conn: redis connector,
@@ -51,7 +51,7 @@ def add_to_cart(conn, cart_id:str, product_id:int):
     return items
 
 
-def delete_item(conn, cart_id:str, product_id:str):
+def DeleteItem(conn, cart_id:str, product_id:str)-> dict:
     """
     This Function Deletes item from cart
     cart_id: unique uuid number 

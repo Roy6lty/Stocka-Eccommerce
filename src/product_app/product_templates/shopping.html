@@ -19,7 +19,7 @@ Shopping Page
                 <div class="categories-product">
                     {% for product in items %}
     
-                        <a href="{{url_for('app_product.product_page', item=product)}}">
+                        <a href="{{url_for('app_product.product_page', item=product._id)}}">
                             <div class="main-div"> <!--Main_div-->
                                 <div>
                                     <div class="product-img"><!--Product-image-->
