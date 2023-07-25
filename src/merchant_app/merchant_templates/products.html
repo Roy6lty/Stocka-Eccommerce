@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} 
+    Products 
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="src/merchant_app/static/product.css">
+{% endblock %}
+
+{% block content %}
+<div class="row" style="margin-top:20px; margin-left:20px">
+   <div class="col-8">
+       <h2>Products on Stocka</h2>
+       <br>
+      <table class="table">
+         <thead>
+            <tr>
+               <!-- Your Columns HERE -->
+               <th scope="col">ID</th>
+               <th scope="col">Name</th>
+               <th scope="col">Barcode</th>
+               <th scope="col">Price</th>
+               <th scope="col">Date Created</th>
+               <th scope="col">Stock</th>
+               <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            <!-- Your rows inside the table HERE: -->
+            
+            {% for item in items %}
+            <!-- Iterate over a pymongo cursor (generator) -->
+            {% include  'includes/products_modal.html' %}
+            <tr>
+               <td>{{ item._id }}</td>
+               <td>{{ item.name }}</td>
+               <td>{{ item.barcode }}</td>
+               <td>{{ item.price }}$</td>
+               <td>{{item.date}}</td>
+               <td>{{item.stock}}</td>
+               <td>
+                  <a href="{{url_for('app_merchant.update_product', product=item._id)}}"><button class="edit-button" >Edit</button></a>
+                  <button class="delete-button" data-toggle="modal" data-target="#Modal-Delete-{{ item._id }}">Delete</button>
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+   <div class="col-4">
+        <h2>Owned Items</h2>
+        <p>Click on sell item to put an item back on the Market</p>
+        <br>
+   </div>
+</div>
+<!--Pagnation-->
+<div align="center">
+    <div class="pagination_section">
+        <a href="#">>>Previous</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">Next>></a>
+    </div>
+    
+</div>
+{% endblock %}

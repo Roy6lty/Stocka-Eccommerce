@@ -4,19 +4,19 @@ from flask_login import current_user
 from flask import flash
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import Length, Email, EqualTo, DataRequired, ValidationError
-from .models import user
+from .models import User
 
 class RegisteredForm(FlaskForm):
 
     def validate_Username(self, username_to_check):
-        User = user.query.filter_by(username=username_to_check.data).first()
-        if User:
+        user = User.query.filter_by(username=username_to_check.data).first()
+        if user:
             raise ValidationError('Username already exist!')
         
         
     def validate_Email_address(self, email_address_to_check):
-        User = user.query.filter_by(email=email_address_to_check.data).first()
-        if User:
+        user = User.query.filter_by(email=email_address_to_check.data).first()
+        if user:
             raise ValidationError('Email Address already exist!')
         
     
@@ -28,8 +28,8 @@ class RegisteredForm(FlaskForm):
     
 class LoginForm(FlaskForm):
     def validate_Username(self, username_to_check):
-        User = user.query.filter_by(username=username_to_check.data).first()
-        if User == None:
+        user = User.query.filter_by(username=username_to_check.data).first()
+        if user == None:
             raise ValidationError("Username doesn't exist")
         
     Username = StringField(label= 'Username', validators=[DataRequired()])
@@ -39,8 +39,8 @@ class LoginForm(FlaskForm):
 class Resetpasswordform(FlaskForm):
 
     def validate_Email_address(self, email_address_to_check):
-        User = user.query.filter_by(email=email_address_to_check.data).first()
-        if User is None:
+        user = User.query.filter_by(email=email_address_to_check.data).first()
+        if user is None:
             raise ValidationError('Email Address Does Not  exist!')
 
     Email_address = StringField(label= 'Email Address',validators=[Email(), DataRequired()])
@@ -54,8 +54,6 @@ class verify_Resetpasswordform(FlaskForm):
     submit = SubmitField(label = 'Sumit')
 
 
-class Purchaseitemform(FlaskForm):
-    submit = SubmitField(label= 'purchase')
     
 class Sellitemform(FlaskForm):
     submit = SubmitField(label= 'Sell')
@@ -64,14 +62,14 @@ class AccountUpdate(FlaskForm):
 
     def validate_Username(self, Username_to_check):
         if Username_to_check.data != current_user.username:
-            User = user.query.filter_by(username=Username_to_check.data).first()
-            if User:
+            user = User.query.filter_by(username=Username_to_check.data).first()
+            if user:
                 raise ValidationError('Username already exist!')
         
         
     def validate_Email_address(self, Email_address_to_check):
         if Email_address_to_check.data != current_user.email:
-            email = user.query.filter_by(email=Email_address_to_check.data).first()
+            email = User.query.filter_by(email=Email_address_to_check.data).first()
             if email:
                 raise ValidationError('Email Address already exist!')
          
@@ -97,8 +95,14 @@ class Add_product(FlaskForm):
     Stock = StringField(label= 'Stock', validators=[DataRequired()])
     Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
     Picture = FileField("Product image", validators =[FileAllowed(['jpeg','jpg','png', 'webp']),DataRequired()])
+    Update = SubmitField(label = 'Update')
     Submit = SubmitField(label = 'Add Product')
 
 class Comments(FlaskForm):
-    Description = TextAreaField(label= 'Description', validators=[Length(min=10),DataRequired()])
+    Description = TextAreaField(label= 'Description', validators=[Length(min=10)])
     Submit = SubmitField(label = 'Post')
+    Addtocart = SubmitField(label= 'ADD TO CART')
+   
+class AddToCart(FlaskForm):
+    
+    Submit = SubmitField(label= 'ADD TO CART')

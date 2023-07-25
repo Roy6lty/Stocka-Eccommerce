@@ -2,7 +2,7 @@ import uuid
 from dataclasses import dataclass
 from .extentions import redis_connector
 import redis
-
+from typing import Type
 
 @dataclass
 class Shoppingcart:
@@ -33,7 +33,7 @@ def CartId(original_function):
     return wrapper_function
 
 
-def AddItem(conn, cart_id:str, product_id:int)-> dict:
+def AddItem(conn:Type[redis_connector], cart_id:str, product_id:int)-> dict:
     """
     This function add product_id cart(redisdatabase)
     conn: redis connector,
@@ -51,7 +51,7 @@ def AddItem(conn, cart_id:str, product_id:int)-> dict:
     return items
 
 
-def DeleteItem(conn, cart_id:str, product_id:str)-> dict:
+def DeleteItem(conn:Type[redis_connector], cart_id:str, product_id:str)-> dict:
     """
     This Function Deletes item from cart
     cart_id: unique uuid number 
@@ -59,10 +59,10 @@ def DeleteItem(conn, cart_id:str, product_id:str)-> dict:
     """
 
 
-    count = conn.hget(cart_id, product_id)
+    count = conn.hget(cart_id, product_id) # query  redis database for item
     if count:
-        conn.hdel(cart_id, product_id)
-    items =conn.hgetall(cart_id)
+        conn.hdel(cart_id, product_id) #deleting item
+    items =conn.hgetall(cart_id) #returning new dict object from redis
     return items 
 
 

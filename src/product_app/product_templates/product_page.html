@@ -8,6 +8,10 @@ product Page
 {% endblock %}
 {% block content %}
 
+
+    
+<form method= 'POST' class="Comment" style="color:rgb(44, 43, 43)" enctype="multipart/form-data">
+{{ form.hidden_tag() }}
 <div><!--Main-->
     <div class="product-content">
         <div class="product-img"><!-- img-->
@@ -26,14 +30,9 @@ product Page
                 <p>  &#8358;{{item.price}}</p>
             </div>
 
-            <div class=><!-- Add Button-->
-                <form method="POST">
-                    <input type="hidden" name="add_to_cart" value="ADD TO CART" >
-                    <button class="add-button">
-                        ADD TO CART</p> </button>
-                </div>
-                </form>
-                
+            <div ><!-- Add Button-->
+                {{form.Addtocart(class="add-button")}}
+            </div>
             <hr width="90%" color="grey" margin-left="auto"  margin-right="auto">
 
         </div>
@@ -43,20 +42,35 @@ product Page
 </div>
 
 <div>
-    
-    <div class="container">
-        <h1> Reviews</h1>
-        <form method= 'POST' class="form-add_product" style="color:rgb(44, 43, 43)" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-
-            {{ form.Description(class= 'form-control', placeholder= 'Review')}}
-
+    <div style= "margin-left: 40px; padding-left: 20px">
+    <h1 > Reviews</h1>
+            {{ form.Description(class= 'form-control', placeholder= 'Review')}}</div>
         <br>
-        {{form.Submit(class='btn btn-sh btn-block btn-primary')}}
-
-        </form>
-        
+    <div  style= "margin-left: 40px; padding-left: 20px">
+        {{form.Submit(class="post-button")}}
     </div>
+        
+    </div> 
+</div>
+</form>
+
+<br>
+<div>
+    {% for product in productcomment %}
+    <div style="background-color:rgba(117, 253, 5, 0.062);">
+
+        <div class="comment-name" >
+        <p style="font-weight: bold; font-size:16px; padding-top:10px; margin-bottom:0;">{{product.name}}</p>
+        <p> {{product.date}}</p>
+        </div>
+        <div class="comment-body">
+            {{product.body}}
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+   
+
 </div>
 <!--------------------------- Side Bar----------------------------------------------------------------->
 

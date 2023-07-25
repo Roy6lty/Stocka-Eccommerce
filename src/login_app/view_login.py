@@ -1,11 +1,9 @@
 from ..extentions import db, Message, mail
 from flask import render_template, redirect, url_for, flash, request,session, Blueprint
-from ..models import user
+from ..models import User, RoleUser
 from ..forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
 from flask_login import login_user, logout_user, login_required, current_user
-from ..cart import Shoppingcart, CartId
-import datetime 
-import jwt
+from ..cart import CartId
 import socket
 socket.setdefaulttimeout(10)
 
@@ -25,20 +23,22 @@ def home_page():
     if not session.get('name'):
         return render_template('home.html')
     
-    return redirect(url_for('app_market.market_page'))
+    return redirect(url_for('app_product.shopping_page'))
 
 @app_login.route('/login', methods = ["POST","GET"])
 @CartId
 def login_page():
     form=LoginForm()
     if form.validate_on_submit():
-        attempted_user = user.query.filter_by(username=form.Username.data).first()
+        attempted_user = User.query.filter_by(username=form.Username.data).first()
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.Password.data):
             login_user(attempted_user)
             session['name'] = attempted_user #setting session-name to username
             flash(f'Success! You are logged in as {attempted_user.username}', category='success')
             #logging.info(f'username{attempted_user}')
-            return redirect(url_for('app_market.market_page'))
+            if current_user.has_role('merchant'):
+                 return redirect(url_for('app_merchant.merchant_dashboard'))
+            return redirect(url_for('app_product.shopping_page'))
         else:
             flash('Username and password do not match! Try again', category='danger')
 
@@ -51,18 +51,19 @@ def register_page():
     form = RegisteredForm()
     if form.validate_on_submit(): #validation of data entry
             #logging.info(form.Email_address.data)
-            user_to_create = user(username=form.Username.data, #db session object created
+            user_to_create = User(username=form.Username.data, #db session object created
                                 email=form.Email_address.data,
                                 password_hash=form.Password.data)
             
 
             user_to_create.create_account() # db session Expire
 
-            attempted_user = user.query.filter_by(username=form.Username.data).first() #db session object created
+            attempted_user = User.query.filter_by(username=form.Username.data).first() #db session object created
             login_user(attempted_user)
             session['name'] = attempted_user #User_session
+            RoleUser.AssignRole(email = form.Email_address.data, role='customer')
             flash(f'Congratulations {attempted_user.username}! You have successfully created your account', category='success')
-            return redirect(url_for('app_market.market_page'))
+            return redirect(url_for('app_product.shopping_page'))
      
     if form.errors != {}:
         for err_msg in form.errors.values():
@@ -79,7 +80,7 @@ def logout():
     logout_user()
     session.pop('name', default='None')
     flash('You have successfully been logged out', category= 'info')
-    return redirect(url_for('app_login.home_page'))
+    return redirect(url_for('app_product.shopping_page'))
 
 
 def send_rest_email(user):
@@ -97,7 +98,7 @@ def send_rest_email(user):
 def resetpassword_page():
     form=Resetpasswordform()
     if request.method == "POST":
-        attempted_user = user.query.filter_by(email=form.Email_address.data).first()
+        attempted_user = User.query.filter_by(email=form.Email_address.data).first()
         if attempted_user:
             send_rest_email(attempted_user)
             flash('Email has been sent to with instructions to reset your password', category= 'info')
@@ -111,12 +112,12 @@ def resetpassword_page():
 @app_login.route('reset_password/<token>', methods = ["GET","POST"])
 def password_reset_token(token):
     form  = verify_Resetpasswordform()
-    user_reset =  user.token_decoder()
+    user_reset =  User.token_decoder()
     if user_reset is None:
         flash('That is a Expired or invaild Token',category= 'warning')
         return redirect(url_for('app_login.resetpassword_page'))
     if form.vaildate_on_submit:
-        user.password = form.Password.data
+        User.password = form.Password.data
         db.session.commit()
         flash('Your Password has been updated ', category='success')
         return redirect('app_login.login')

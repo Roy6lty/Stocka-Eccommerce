@@ -2,7 +2,7 @@ from .extentions import (db, login_manger, session, bcrypt,
                                 Message, mail, redis_connector, mongo, client,)
 from flask import Flask, g, request, current_app as app
 from config import config
-from .models import Item
+from .models import RoleUser
 from .MongoCRUD import StockaProducts, Struct
 from redis.exceptions import DataError
 
@@ -33,6 +33,7 @@ def create_app(config_name):
     from .market_app.view_market import app_market
     from .user_profile.view_profile import profile
     from .product_app.view_products import app_product
+    from .merchant_app.view_merchant import app_merchant
 
     login_manger.login_view = 'app_login.login_page'
     login_manger.login_message_category = 'info'
@@ -42,7 +43,9 @@ def create_app(config_name):
     app.register_blueprint(app_login, url_prefix = "")
     app.register_blueprint(app_market, url_prefix = "")
     app.register_blueprint(profile, url_prefix = "")
-    app.register_blueprint(app_product, url_prefix = "")
+    app.register_blueprint(app_product, url_prefix = "/shopping")
+    app.register_blueprint(app_merchant, url_prefix = "/merchantstocka")
+  
 
     @app.context_processor
     def cart_loader():
@@ -55,34 +58,31 @@ def create_app(config_name):
             cart = redis_connector.hgetall(cart_id)
         except DataError: #redis returns Nonetype obj
             cart = dict()
-
         product_id = [ObjectId(key) for key in cart.keys()] #list of keys
         query = {"_id":{"$in" : product_id}}
-
         items = Struct.submit(list(StockaProducts.find(query)))
-        
-        # item = Item.query.filter(Item.id.in_(product_id)).all()
-
-
-
         return dict(cart = items)
+    
 
     @app.context_processor
     def cart_unloader():
+        """_summary_
+        This function unloads the cart & redirects users to current page
+        Returns:str(endpoint function)
+            _type_: _description_
+        """
         name = 'name'
         endpoint, path = app.view_functions.get(request.url_rule.endpoint, None), app.view_functions
         value =  {name :i for i in path if path[i] == endpoint}
-        value['name']
+        value['name'] #returs name of endpoint
         
         return dict(page_function = value['name'])
-        
-
         
 
     
     with app.app_context():
         db.create_all()
-
+        RoleUser.db_load(app, db)
 
 
     return app
