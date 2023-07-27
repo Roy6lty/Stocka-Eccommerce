@@ -36,8 +36,11 @@ def login_page():
             session['name'] = attempted_user #setting session-name to username
             flash(f'Success! You are logged in as {attempted_user.username}', category='success')
             #logging.info(f'username{attempted_user}')
+
+            #routing for admin
             if current_user.has_role('merchant'):
                  return redirect(url_for('app_merchant.merchant_dashboard'))
+            
             return redirect(url_for('app_product.shopping_page'))
         else:
             flash('Username and password do not match! Try again', category='danger')

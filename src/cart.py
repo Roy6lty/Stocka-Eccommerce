@@ -4,11 +4,9 @@ from .extentions import redis_connector
 import redis
 from typing import Type
 
-@dataclass
+
 class Shoppingcart:
-    cart_id: str #unique uuid number
-    cart_items: list #list of product id
-    
+     pass
 
 def CartId(original_function):
     #importing modules

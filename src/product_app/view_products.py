@@ -84,7 +84,7 @@ def product_page(item):
 def unload_cart(cartitem, page_function):
     
     cart_id = request.cookies.get('cart_id')
-    DeleteItem(redis_connector, cart_id, cartitem)#add to redis dataase 
+    DeleteItem(redis_connector, cart_id, cartitem)#delte to redis dataase 
     flash(f'item removed from cart', category='success')
     return redirect(url_for( page_function, item=cartitem))
 

@@ -48,7 +48,7 @@ def create_app(config_name):
   
 
     @app.context_processor
-    def cart_loader():
+    def cart_loader()-> dict:
         from bson.objectid import ObjectId
         """
         This Funnction return the cart item
@@ -58,25 +58,25 @@ def create_app(config_name):
             cart = redis_connector.hgetall(cart_id)
         except DataError: #redis returns Nonetype obj
             cart = dict()
-        product_id = [ObjectId(key) for key in cart.keys()] #list of keys
+        product_id = [ObjectId(key) for key in cart.keys()] #list of mongo object id
         query = {"_id":{"$in" : product_id}}
-        items = Struct.submit(list(StockaProducts.find(query)))
+        items = Struct.submit(list(StockaProducts.find(query))) #returns a list of mongodb obj
         return dict(cart = items)
     
 
     @app.context_processor
-    def cart_unloader():
+    def page_loader()-> dict:
         """_summary_
-        This function unloads the cart & redirects users to current page
+        This function returns the previous view function for a user
         Returns:str(endpoint function)
             _type_: _description_
         """
-        name = 'name'
+        name = 'name' #declaring variable
         endpoint, path = app.view_functions.get(request.url_rule.endpoint, None), app.view_functions
-        value =  {name :i for i in path if path[i] == endpoint}
-        value['name'] #returs name of endpoint
+        value =  {name :i for i in path if path[i] == endpoint} #returns matching endpoint
+        value['name'] #returns name of endpoint function
         
-        return dict(page_function = value['name'])
+        return dict(page_function = value['name']) 
         
 
     
