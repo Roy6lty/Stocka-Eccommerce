@@ -56,11 +56,13 @@ def create_app(config_name):
         cart_id = request.cookies.get('cart_id')
         try:
             cart = redis_connector.hgetall(cart_id)
-        except DataError: #redis returns Nonetype obj
-            cart = dict()
+        except DataError:     #redis returns Nonetype obj
+            cart = dict()     #intialixe empty dict
+
         product_id = [ObjectId(key) for key in cart.keys()] #list of mongo object id
         query = {"_id":{"$in" : product_id}}
-        items = Struct.submit(list(StockaProducts.find(query))) #returns a list of mongodb obj
+        items = zip(Struct.submit(list(StockaProducts.find(query))), #returns a list of mongodb obj
+                    cart.values()) #product quantity 
         return dict(cart = items)
     
 

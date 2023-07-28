@@ -15,7 +15,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {% for cartitem in cart %}
+        {% for cartitem, qunatity in cart %}
           <div class="cart-basket">
               <div class="cart-item"><!--cart summary-->
                   <div ><!--image-->
@@ -27,6 +27,8 @@
                     {{ cartitem.name }}</div>
                     <div class="cart-price">
                       &#8358;{{ cartitem.price }}</div>
+                      <div class="cart-qunatity">
+                        {{ qunatity }}</div>
                   </div> <!--details close-->
               </div> <!--cart summary close--> 
               <div>

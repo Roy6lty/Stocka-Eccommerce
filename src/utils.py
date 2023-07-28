@@ -1,5 +1,5 @@
 import jwt
-from src import app
+from flask import current_app as app
 from datetime import time, datetime, timezone, timedelta
 from flask import jsonify
 from starlette import status
