@@ -76,5 +76,3 @@ config = {
     'mongo': dbMongo,
     'secret':secret
 }
-
-print()

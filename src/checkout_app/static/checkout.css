@@ -1,0 +1,35 @@
+.body{
+    margin-top: 50px;
+}
+
+.cart-title{
+    font-size: 16px;
+    font-weight: normal;
+    font:roboto;
+
+}
+.cart-price, .cart-qunatity{
+    font-size: 16px;
+    font-weight: 600;
+    font:roboto;
+}
+.cart-img{
+    width: 70px;
+    padding-right:5px;
+
+}
+.cart-item{
+    display:flex;
+    flex-direction: row;
+}
+.cart-details{
+    padding-top:3px;
+}
+.cart-basket{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.basket-close{
+    transform: rotate(45deg);
+}

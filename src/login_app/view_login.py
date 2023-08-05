@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash, request,session, Bl
 from ..models import User, RoleUser
 from ..forms import RegisteredForm, LoginForm, Resetpasswordform, verify_Resetpasswordform
 from flask_login import login_user, logout_user, login_required, current_user
-from ..cart import CartId
+from ..cart import CartId, DeleteCartId
 import socket
 socket.setdefaulttimeout(10)
 
@@ -42,6 +42,7 @@ def login_page():
                  return redirect(url_for('app_merchant.merchant_dashboard'))
             
             return redirect(url_for('app_product.shopping_page'))
+        
         else:
             flash('Username and password do not match! Try again', category='danger')
 
@@ -79,6 +80,7 @@ def register_page():
 
 @app_login.route('/logout')
 @login_required
+@DeleteCartId
 def logout():
     logout_user()
     session.pop('name', default='None')

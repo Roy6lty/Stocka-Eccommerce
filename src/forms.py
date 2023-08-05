@@ -81,6 +81,7 @@ class AccountUpdate(FlaskForm):
     Country =StringField(label= 'country')
     Picture = FileField("Upadate Profile Picture", validators =[FileAllowed(['jpg','png', 'jpeg'])])
     Update = SubmitField(label = 'Save Profile')
+    Procced = SubmitField(label = 'Procced to checkout')
 
 class Add_product(FlaskForm):
 

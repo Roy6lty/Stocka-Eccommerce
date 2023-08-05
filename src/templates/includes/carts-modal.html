@@ -19,8 +19,9 @@
           <div class="cart-basket">
               <div class="cart-item"><!--cart summary-->
                   <div ><!--image-->
-                    <img class ="cart-img" src="src/product_app/static/product_pic/{{cartitem.image_file}}"></div>
-
+                    <img class ="cart-img" src="{{url_for('app_product.static', filename='product_pic/'+ cartitem.image_file)}}"></div>
+                    
+                   
                   <div class="cart-details">
                     <!--cart details (price, quantity, name)-->
                     <div class="cart-title">
@@ -32,6 +33,7 @@
                   </div> <!--details close-->
               </div> <!--cart summary close--> 
               <div>
+                <!-- Link to delete page -->
                     <a href="{{url_for('app_product.unload_cart', cartitem=cartitem._id, item = item, page_function=page_function)}}">
                     <button class="close">
                         
@@ -46,6 +48,12 @@
         
       </div>
       <div class="modal-footer">
+        <a href="{{url_for('app_checkout.complete_checkout')}}">
+          <button  style="background-color : rgb(64,64,235)" type="button" class="btn btn-secondary">
+            Checkout
+          </button>
+        </a>
+
         <button type="button" class="btn btn-secondary"
                 data-dismiss="modal">Close
         </button>

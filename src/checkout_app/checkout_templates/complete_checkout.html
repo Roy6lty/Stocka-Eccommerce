@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+<!--changing the Title block--> 
+{% block title %}
+    Checkout
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="src/checkout_app/static/checkout.css">
+{% endblock %}
+
+{% block content %}
+
+
+        
+<body class="body">
+
+
+  <div class="container">
+    <h2>Checkout Summary</h2>
+   
+    <br>
+   <table class="table table-hover table-dark">
+      <thead>
+         <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">Summary</th>
+            <th scope="col"></th>
+         </tr>
+      </thead>
+      <tbody>
+         <!-- Your rows inside the table HERE: -->
+         <tr>
+            <td>Item Total</td>
+            <td>{{ item_total }}</td>
+         </tr>
+         <tr>
+          <td>Checkout Total</td>
+          <td>{{ checkout_total }}</td>
+       </tr>
+        
+      </tbody>
+   </table>
+</div>
+<br>
+<div class="container">
+
+  {% for cartitem, qunatity in cart_checkout %}
+    
+          <div class="cart-basket">
+              <div class="cart-item"><!--cart summary-->
+                  <div ><!--image-->
+                    <img class ="cart-img" src="{{url_for('app_product.static', filename='product_pic/'+ cartitem.image_file)}}"></div>
+                    
+                   
+                  <div class="cart-details">
+                    <!--cart details (price, quantity, name)-->
+                    <div class="cart-title">
+                    {{ cartitem.name }}</div>
+                    <div class="cart-price">
+                      &#8358;{{ cartitem.price }}</div>
+                      <div class="cart-qunatity">
+                        {{ qunatity }}</div>
+                  </div> <!--details close-->
+              </div> <!--cart summary close--> 
+          </div>
+        {% endfor %}
+
+
+</div>
+
+
+ 
+  <div class="container">
+    <h3>Delivery Details </h3>
+    <br>
+
+      <form method= 'POST' class="form-Accountupdate" style="color:rgb(83, 81, 81)" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+
+      {{ form.Mobile_number.label()}}
+      {{ form.Mobile_number(class= 'form-control', placeholder= 'Mobile')}}
+
+      {{ form.Address.label()}}
+      {{ form.Address(class= 'form-control', placeholder= 'Address')}}
+
+      
+      {{ form.State.label()}}
+      {{ form.State(class= 'form-control', placeholder= 'State')}}
+
+      
+      {{ form.Country.label()}}
+      {{ form.Country(class= 'form-control', placeholder= 'Country')}}
+      <br>    
+          <br>
+          {{form.Procced(class='btn btn-lng btn-block btn-primary')}}
+
+      </form>
+  </div>
+  </div>
+</body>
+{% endblock %}

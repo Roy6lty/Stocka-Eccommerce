@@ -5,6 +5,7 @@ from flask_security import RoleMixin
 from flask_login import UserMixin, current_user
 from functools import wraps
 import jwt
+import uuid
 from datetime import datetime, timezone, timedelta
 
 
@@ -43,6 +44,7 @@ class User(db.Model, UserMixin):
         self.email = email
         self.username = username
         self.password = password_hash
+        self.cart_id = str(uuid.uuid4())
     
     
     @property
@@ -139,9 +141,20 @@ class RoleUser:
         if query == 0:
             merchant = Role(name="merchant")
             customer = Role(name="customer")
+            admin = User(username="Admin", password_hash='123456',  email="olowoleru@gmail.com")
             db.session.add(merchant)
             db.session.add(customer)
+            db.session.add(admin)
             db.session.commit()
+
+            user = User.query.filter_by(email = 'olowoleru@gmail.com').first()
+            role = Role.query.filter_by(name = 'merchant').first()
+            user.roles.append(role) #assing role
+            db.session.commit()
+
+
+        
+
     
     def AssignRole(email:str, role:str):
        '''

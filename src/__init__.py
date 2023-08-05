@@ -1,10 +1,11 @@
 from .extentions import (db, login_manger, session, bcrypt, 
-                                Message, mail, redis_connector, mongo, client,)
+                                Message, mail, redis_connector, mongo, client, current_user)
 from flask import Flask, g, request, current_app as app
 from config import config
 from .models import RoleUser
 from .MongoCRUD import StockaProducts, Struct
 from redis.exceptions import DataError
+from .utils import  celery_init_app
 
 
 
@@ -19,6 +20,15 @@ def create_app(config_name):
     app.config.from_object(config['upload'])
     app.config.from_object(config['mongo'])
     app.config.from_object(config['secret'])
+
+    app.config.from_mapping(
+    CELERY=dict(
+        broker_url="redis://localhost",
+        result_backend="redis://localhost",
+        ),
+    )
+
+    celery_app = celery_init_app(app)
     
 
     #intilzation with flask app instance
@@ -34,6 +44,7 @@ def create_app(config_name):
     from .user_profile.view_profile import profile
     from .product_app.view_products import app_product
     from .merchant_app.view_merchant import app_merchant
+    from .checkout_app.view_checkout import app_checkout
 
     login_manger.login_view = 'app_login.login_page'
     login_manger.login_message_category = 'info'
@@ -45,15 +56,20 @@ def create_app(config_name):
     app.register_blueprint(profile, url_prefix = "")
     app.register_blueprint(app_product, url_prefix = "/shopping")
     app.register_blueprint(app_merchant, url_prefix = "/merchantstocka")
+    app.register_blueprint(app_checkout, url_prefix="/checkout")
   
 
     @app.context_processor
     def cart_loader()-> dict:
         from bson.objectid import ObjectId
         """
-        This Funnction return the cart item
+        **/ This function return the cart item for a user in a context
+        /
         """
-        cart_id = request.cookies.get('cart_id')
+        if current_user.is_authenticated:
+            cart_id = current_user.cart_id
+        else:
+            cart_id = request.cookies.get('cart_id')
         try:
             cart = redis_connector.hgetall(cart_id)
         except DataError:     #redis returns Nonetype obj
@@ -61,8 +77,8 @@ def create_app(config_name):
 
         product_id = [ObjectId(key) for key in cart.keys()] #list of mongo object id
         query = {"_id":{"$in" : product_id}}
-        items = zip(Struct.submit(list(StockaProducts.find(query))), #returns a list of mongodb obj
-                    cart.values()) #product quantity 
+        items = zip(StockaProducts.find(query), #returns a generator of mongodb obj
+                    (cart.values())) # returns generator product quantity 
         return dict(cart = items)
     
 
@@ -87,4 +103,4 @@ def create_app(config_name):
         RoleUser.db_load(app, db)
 
 
-    return app
+    return app, celery_app

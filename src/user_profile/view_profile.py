@@ -16,21 +16,6 @@ socket.setdefaulttimeout(10)
 profile = Blueprint('profile', __name__, static_folder="static",static_url_path='src/user_profile/static', template_folder="user_templates")
 
 
-# def save_picture(form_picture):
-#     '''
-#     saving picture name with a 8 bit random_hex
-#     '''
-#     random_hex = secrets.token_hex(8) #generating Hex
-#     _, f_ext = os.path.splitext(form_picture.filename) #spliting filename and extention
-#     pic_fn  =random_hex + f_ext #appending new File name
-#     picture_path = os.path.join(app.root_path, 'user_profile/static/profile_pic', pic_fn) 
-#     output_size =(125, 125)
-#     img =Image.open(form_picture)
-#     img.thumbnail(output_size)
-
-#     img.save(picture_path)  #saving picture locally
-#     return pic_fn
-
 
 @profile.route('/account', methods = ['POST','GET'])
 @login_required
