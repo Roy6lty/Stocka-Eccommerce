@@ -1,12 +1,9 @@
-from celery import Celery, shared_task,Task
+from celery import shared_task
 from celery.contrib.abortable import AbortableTask
 from time import sleep
-from src.models import User
-from src.extentions import db
-from flask import current_app as app
-from flask_login import current_user
-from docxtpl import DocxTemplate, InlineImage
-from src.utils import tokens
+from ..models import User
+from docxtpl import DocxTemplate
+from ..utils import tokens
 from datetime import date
 
 

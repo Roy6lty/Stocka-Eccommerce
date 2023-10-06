@@ -49,7 +49,7 @@ class dbMongo(Config):
 
 class BaseConfig(Config):
     '''Base config'''
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/database.db'
     SECRET_KEY = os.environ.get("SECRET_KEY")
     DEBUG =True
 

@@ -33,11 +33,9 @@ def login_page():
         attempted_user = User.query.filter_by(username=form.Username.data).first()
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.Password.data):
             login_user(attempted_user)
-            session['name'] = attempted_user #setting session-name to username
+            session['name'] = attempted_user 
             flash(f'Success! You are logged in as {attempted_user.username}', category='success')
-            #logging.info(f'username{attempted_user}')
-
-            #routing for admin
+            
             if current_user.has_role('merchant'):
                  return redirect(url_for('app_merchant.merchant_dashboard'))
             

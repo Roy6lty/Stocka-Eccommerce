@@ -141,13 +141,13 @@ class RoleUser:
         if query == 0:
             merchant = Role(name="merchant")
             customer = Role(name="customer")
-            admin = User(username="Admin", password_hash='123456',  email="olowoleru@gmail.com")
+            admin = User(username="Admin", password_hash='123456',  email="admin@123.com")
             db.session.add(merchant)
             db.session.add(customer)
             db.session.add(admin)
             db.session.commit()
 
-            user = User.query.filter_by(email = 'olowoleru@gmail.com').first()
+            user = User.query.filter_by(email = 'admin@123.com.com').first()
             role = Role.query.filter_by(name = 'merchant').first()
             user.roles.append(role) #assing role
             db.session.commit()
