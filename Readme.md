@@ -11,6 +11,8 @@
 - User profile and data management
 
 #### App Navigation
+
+
 ├── instance                         -Contains the  dbms system
 ├── invoice                          -Generatered invoice for purchases.
 ├── src                             - contains files required by the application to run the flask code and blueprints
@@ -36,6 +38,7 @@
     |
     ├── Templates                       -contains html base html files
     ├──uploads                          -contains uploaded profile pics for users
+
     ├──User_profile                      -contains pythons for user profile
     |   ├──user_templates               -contains html files for userprofile page
     |    ├──static                      -contains static files for product page 
