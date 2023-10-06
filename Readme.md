@@ -36,7 +36,6 @@
     |
     ├── Templates                       -contains html base html files
     ├──uploads                          -contains uploaded profile pics for users
-
     ├──User_profile                      -contains pythons for user profile
     |   ├──user_templates               -contains html files for userprofile page
     |    ├──static                      -contains static files for product page 
