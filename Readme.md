@@ -12,51 +12,110 @@
 
 #### App Navigation
 
-
-├── instance                         -Contains the  dbms system
-├── invoice                          -Generatered invoice for purchases.
-├── src                             - contains files required by the application to run the flask code and blueprints
-    ├──checkout_app                  - starting point of the application blueprint
-    |   ├──checkout_templates         - contains html files for checkout 
-    |   ├──static                    - contains static files for checkout page
-    |   
-    |   
-    ├──login_app                      - contains pythons for login and user authentication
-    |   ├──login_templates            -contains html files for Login
-    |   ├──static                      -contains static files for login page 
-    |     
-    |
-    ├──market_app                      - contains pythons for product and shopping page
-    |   ├──market_templates            -contains html files for shoppping page
-    |    ├──static                      -contains static files for shopping page 
-    |
-    |
-    ├──Product_app                      -contains pythons for product page and  products added
-    |   ├──product_templates            -contains html files for produuct page
-    |    ├──static                      -contains static files for product page 
-    |
-    |
-    ├── Templates                       -contains html base html files
-    ├──uploads                          -contains uploaded profile pics for users
-
-    ├──User_profile                      -contains pythons for user profile
-    |   ├──user_templates               -contains html files for userprofile page
-    |    ├──static                      -contains static files for product page 
-    |
-    ├──init.py                          -intialization 
-    ├──cart.py                          -cart funitionalities
-    ├──extentions.py                     -contains commonly used file imports
-    ├──forms.py                          -contains forms
-    ├── models.py                        -database table models   
-    ├──MongoCrud.py                      -MongoDb CRUD operations
-    |   
-    | 
-├── static                                -static images
-├──run.py                                 -entry point
-
-
+```bash
+├── Readme.md
+├── __init__.py
+├── __pycache__
+│   ├── app.cpython-311.pyc
+│   ├── app.cpython-39.pyc
+│   ├── config.cpython-39.pyc
+│   ├── flas.cpython-39.pyc
+│   └── main.cpython-39.pyc
+├── config.py
+├── instance
+│   └── database.db
+├── invoice
+│   ├── a9f062f0f6264b32.docx
+│   ├── report.docx
+│   ├── stockinvoice.docx
+│   └── ~$ockinvoice.docx
+├── requirements.txt
+├── run.py
+├── src
+│   ├── MongoCRUD.py
+│   ├── __init__.py
+│   ├── cart.py
+│   ├── checkout_app
+│   │   ├── checkout_templates
+│   │   │   └── complete_checkout.html
+│   │   ├── static
+│   │   │   └── checkout.css
+│   │   ├── tasks.py
+│   │   └── view_checkout.py
+│   ├── extentions.py
+│   ├── forms.py
+│   ├── login_app
+│   │   ├── __init__.py
+│   │   ├── login_templates
+│   │   │   ├── home.html
+│   │   │   ├── login.html
+│   │   │   ├── register.html
+│   │   │   ├── resetpassword.html
+│   │   │   └── verify_password.html
+│   │   ├── static
+│   │   │   └── images
+│   │   │       └── Registration.png
+│   │   └── view_login.py
+│   ├── market_app
+│   │   ├── __init__.py
+│   │   ├── market_templates
+│   │   │   ├── includes
+│   │   │   │   └── items_modals.html
+│   │   │   └── market.html
+│   │   └── view_market.py
+│   ├── merchant_app
+│   │   ├── __init__.py
+│   │   ├── merchant_templates
+│   │   │   ├── includes
+│   │   │   │   └── products_modal.html
+│   │   │   ├── products.html
+│   │   │   └── update_product.html
+│   │   ├── static
+│   │   │   └── product.css
+│   │   └── view_merchant.py
+│   ├── models.py
+│   ├── product_app
+│   │   ├── __init__.py
+│   │   ├── product_templates
+│   │   │   ├── add_product.html
+│   │   │   ├── product_page.html
+│   │   │   └── shopping.html
+│   │   ├── static
+│   │   │   ├── icons/
+│   │   │   ├── product.css
+│   │   │   ├── product_page.css
+│   │   │   ├── product_pic/
+│   │   │   │   ├── icons/
+│   │   │   └── shopping_page.css
+│   │   └── view_products.py
+│   ├── static
+│   │   ├── LOGO alt 3.png
+│   │   ├── base.css
+│   │   ├── cart.css
+│   │   ├── cart.png
+│   │   └── cart.png:Zone.Identifier
+│   ├── templates
+│   │   ├── base copy.html
+│   │   ├── base.html
+│   │   └── includes
+│   │       ├── carts-modal.html
+│   │       └── items_modals.html
+│   ├── uploads
+│   │   └── profile_pics/
+│   ├── user_profile
+│   │   ├── __init__.py
+│   │   ├── static
+│   │   │   └── profile_pic/
+│   │   │       
+│   │   ├── user_templates
+│   │   │   ├── account.html
+│   │   │   └── bckup.html
+│   │   └── view_profile.py
+│   └── utils.py
+└── static
+    └── images
+```
 #### Requirements
 - install dependencies in the requirements.txt
 - configure the redis database uri
 - configure the mongo base uri
--

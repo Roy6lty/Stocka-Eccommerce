@@ -9,13 +9,14 @@ from flask_pymongo import PyMongo
 import redis
 redis_connector = redis.Redis(host='localhost', port=6379, decode_responses=True)
 from pymongo import MongoClient 
+from .config import dbMongo
 #from .config import dbMongo
 
 #pymongo
 
 #connection_string = dbMongo.MONGO_URI
 connection_string =f"mongodb://localhost:27017"
-client = MongoClient(connection_string)
+client = MongoClient(dbMongo.MONGO_URI)
 
 
 

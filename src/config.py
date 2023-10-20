@@ -7,7 +7,7 @@ import json
 
 env_path =Path(".", ".env") #env path
 
-load_dotenv(find_dotenv())
+load_dotenv('./.env')
 
 class Config:
     SQLALCHEMY_TRACK_MODIFICATION = False
@@ -49,9 +49,9 @@ class dbMongo(Config):
 
 class BaseConfig(Config):
     '''Base config'''
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/database.db'
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    DEBUG =True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # DEBUG =True
 
 
 class secret(Config):
@@ -76,3 +76,5 @@ config = {
     'mongo': dbMongo,
     'secret':secret
 }
+
+print(dbMongo.MONGO_URI)

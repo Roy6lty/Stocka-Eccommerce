@@ -1,5 +1,5 @@
 from src import create_app
-from config import config
+from src.config import config
 app, celery = create_app('Base')
 app.app_context().push()
 

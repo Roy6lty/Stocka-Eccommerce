@@ -147,7 +147,7 @@ class RoleUser:
             db.session.add(admin)
             db.session.commit()
 
-            user = User.query.filter_by(email = 'admin@123.com.com').first()
+            user = User.query.filter_by(email = 'admin@123.com').first()
             role = Role.query.filter_by(name = 'merchant').first()
             user.roles.append(role) #assing role
             db.session.commit()

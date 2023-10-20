@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 from ..cart import RetrieveCart
 from datetime import date
 from ..MongoCRUD import Struct
-from tasks import GetReceipt
+from .tasks import GetReceipt
 
 app_checkout = Blueprint('app_checkout', __name__, static_folder="static", template_folder="checkout_templates",static_url_path='src/checkout_app/static')
 

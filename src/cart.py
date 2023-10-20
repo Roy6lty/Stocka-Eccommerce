@@ -72,7 +72,7 @@ def DeleteCartId(original_function):
 
 
 
-def AddItem(conn:Type[redis_connector], cart_id:str, product_id:int)-> dict:
+def AddItem(conn:redis_connector, cart_id:str, product_id:int)-> dict:
     """
     This function add product_id cart(redisdatabase)
     conn: redis connector,
@@ -90,7 +90,7 @@ def AddItem(conn:Type[redis_connector], cart_id:str, product_id:int)-> dict:
     return items
 
 
-def DeleteItem(conn:Type[redis_connector], cart_id:str, product_id:str)-> dict:
+def DeleteItem(conn:redis_connector, cart_id:str, product_id:str)-> dict:
     """
     This Function Deletes item from cart
     cart_id: unique uuid number 

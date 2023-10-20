@@ -1,7 +1,7 @@
 from .extentions import (db, login_manger, session, bcrypt, 
                                 Message, mail, redis_connector, mongo, client, current_user)
 from flask import Flask, g, request, current_app as app
-from config import config
+from src.config import config, BaseConfig
 from .models import RoleUser
 from .MongoCRUD import StockaProducts, Struct
 from redis.exceptions import DataError
@@ -10,7 +10,8 @@ from .utils import  celery_init_app
 
 
 
-def create_app(config_name):
+
+def create_app(config_name:str):
     app = Flask(__name__)
 
     #Configuration
@@ -20,6 +21,9 @@ def create_app(config_name):
     app.config.from_object(config['upload'])
     app.config.from_object(config['mongo'])
     app.config.from_object(config['secret'])
+    app.config['SQLALCHEMY_DATABASE_URI'] = BaseConfig.SQLALCHEMY_DATABASE_URI
+    print(BaseConfig.SQLALCHEMY_DATABASE_URI)
+   
 
     app.config.from_mapping(
     CELERY=dict(
@@ -97,10 +101,11 @@ def create_app(config_name):
         return dict(page_function = value['name']) 
         
 
-    
+   
     with app.app_context():
         db.create_all()
         RoleUser.db_load(app, db)
+
 
 
     return app, celery_app

@@ -48,17 +48,16 @@ def login_page():
 
 
 
-@app_login.route('/register', methods = ['POST','GET']) #Routing to registeration page
+@app_login.route('/register', methods = ['POST','GET']) 
 def register_page():
     form = RegisteredForm()
-    if form.validate_on_submit(): #validation of data entry
-            #logging.info(form.Email_address.data)
-            user_to_create = User(username=form.Username.data, #db session object created
+    if form.validate_on_submit():
+            user_to_create = User(username=form.Username.data, 
                                 email=form.Email_address.data,
                                 password_hash=form.Password.data)
             
 
-            user_to_create.create_account() # db session Expire
+            user_to_create.create_account()
 
             attempted_user = User.query.filter_by(username=form.Username.data).first() #db session object created
             login_user(attempted_user)
