@@ -132,6 +132,7 @@
 ![Alt text](./stockapics/inventory%20management.png?raw=true "inventory") 
 ![Alt text](./stockapics/login.png?raw=true "login")
 ![Alt text](./stockapics/profile.png?raw=true "profile") 
+![Alt text](./stockapics/cart.png.png?raw=true "cart") 
 
 
 
