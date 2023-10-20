@@ -133,7 +133,7 @@
 ![Alt text](./stockapics/login.png?raw=true "login")
 ![Alt text](./stockapics/profile.png?raw=true "profile") 
 ![Alt text](./stockapics/cart.png?raw=true "cart") 
-![Alt text](./stockapics/checkout.png.png?raw=true "cart") 
+![Alt text](./stockapics/checkout.png?raw=true "cart") 
 
 
 
