@@ -1,14 +1,16 @@
+![Alt text](./stockapics/homepage.png?raw=true "homepage") 
 
 #### Description
- This is a project is aimed at building a flask Ecoomerce Fullstack web_app
+ This is a project is aimed at building an  Ecoomerce Fullstack web_app with the flask framework and a static frontend using.
 
 #### Features
-- Role Based User Authentication 
+- Role Based User Authentication ad session mangement
 - Carting System
 - Reciept Generator
 - Product Inventory and Management
+- comment and rating system for product
 - Email Notification 
-- User profile and data management
+- User profile pic and profile management
 
 #### App Navigation
 
@@ -117,5 +119,23 @@
 ```
 #### Requirements
 - install dependencies in the requirements.txt
-- configure the redis database uri
-- configure the mongo base uri
+- Configure The mongobd database URI in the env file
+- Configure The Redis database URI in the env file
+- Configure The SQLdatabase URI in the env file
+- Run the run.py file
+- The Default Login  Username and password ['Admin', 'password']
+
+
+![Alt text](./stockapics/airpods.png?raw=true "airpods") 
+![Alt text](./stockapics/apple%20watch.png?raw=true "watch")  
+![Alt text](./stockapics/home.png?raw=true "home")  
+![Alt text](./stockapics/inventory%20management.png?raw=true "inventory") 
+![Alt text](./stockapics/login.png?raw=true "login")
+![Alt text](./stockapics/profile.png?raw=true "profile") 
+
+
+
+
+
+
+

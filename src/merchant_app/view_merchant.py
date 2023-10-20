@@ -84,6 +84,7 @@ def add_product():
                 flash(f'Congratulations! You have successfully Added your product', category='success')
             
                 return redirect(url_for('app_product.add_product'))
+    return render_template('add_product.html', form=form)
     
     
 

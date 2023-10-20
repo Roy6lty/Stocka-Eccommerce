@@ -75,3 +75,11 @@ class password_reset:
 
     
 
+def prettier_budget(price):
+        '''
+        returning commas between zeros for budget
+        '''
+        if len(str(price)) >= 4:
+            return f'{str(price)[:-3]},{str(price)[-3:]}'
+        else:
+            return f'{price}'

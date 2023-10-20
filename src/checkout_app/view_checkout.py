@@ -1,4 +1,4 @@
-from ..utils import tokens
+from ..utils import tokens, prettier_budget
 from flask import request, render_template, redirect, url_for, Blueprint, current_app as app
 from ..MongoCRUD import StockaProducts, Struct
 from ..forms import AccountUpdate
@@ -23,7 +23,8 @@ def complete_checkout():
     for item, quantity in cart: 
         checkout_total += int(item['price']) * int(quantity)
         item_total += 1
-        sale = {"name":item['name'], "quantity":quantity, "price":item['price'], "total" : int(item['price']) *int( quantity)}
+        sale = {"name":item['name'], "quantity":quantity, "price":item['price'],
+                 "total" : prettier_budget(int(item['price']) *int( quantity))}
         salesRows.append(sale) 
 
     #celery json obj
@@ -57,7 +58,7 @@ def complete_checkout():
         
 
     return render_template("complete_checkout.html", form=form, cart_checkout= RetrieveCart(), 
-                                    item_total=item_total, checkout_total=checkout_total)
+                                    item_total=item_total, checkout_total=prettier_budget(checkout_total))
 
 
 
